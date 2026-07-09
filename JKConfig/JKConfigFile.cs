@@ -4,9 +4,11 @@ using JKConfig.ContentCfg;
 using JLL.ScriptableObjects;
 using System.Collections.Generic;
 using System.IO;
+using UnityEngine;
 
 namespace JKConfig
 {
+    [CreateAssetMenu(menuName = "JLL/Addon/JKConfig")]
     public class JKConfigFile : JLLAddon
     {
         private ConfigFile File;
