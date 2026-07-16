@@ -27,6 +27,7 @@ namespace JKConfig
 
             foreach (var cfg in Items) if (cfg.Load(File)) i++;
 
+            File.Save();
             Plugin.mls.LogInfo($"Applied {i}: {File.ConfigFilePath}");
         }
     }
