@@ -37,4 +37,14 @@
       <PackageReference Include="IAmBatby-LethalLevelLoader" Version="*-*" Publicize="true" PrivateAssets="all"/>
       <PackageReference Include="JacobG5-JLL" Version="*-*" Publicize="true" PrivateAssets="all"/>
   </ItemGroup>
+
+  <Target Name="CopyToDebugProfile" AfterTargets="PostBuildEvent" Condition="'$(Configuration)' == 'Debug'">
+    <Message Importance="high" Text="" />
+
+    <Copy SourceFiles="$(TargetDir)$(AssemblyName).dll" DestinationFolder="$(DebugLibraryDirectory)" Condition="Exists('$(DebugLibraryDirectory)')" />
+    <Message Importance="high" Text="Copied to $(DebugLibraryDirectory)" Condition="Exists('$(DebugLibraryDirectory)')" />
+
+    <Copy SourceFiles="$(TargetDir)$(AssemblyName).dll" DestinationFolder="$(DebugProfile)/debug-$(AssemblyName)" Condition="Exists('$(DebugProfile)')" />
+    <Message Importance="high" Text="Copied to $(DebugProfile)/debug-$(AssemblyName)" Condition="Exists('$(DebugProfile)')" />
+  </Target>
 </Project>
