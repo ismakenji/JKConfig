@@ -16,7 +16,7 @@ namespace JKConfig
     {
         private const string modGUID = "rectorado.JKConfig";
         private const string modName = "JKConfig";
-        private const string modVersion = "0.1.0";
+        private const string modVersion = "1.0.0";
 
         internal static ManualLogSource mls;
         internal static List<JKConfigFile> configFiles = [];
