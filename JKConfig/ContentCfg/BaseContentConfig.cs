@@ -14,7 +14,10 @@ namespace JKConfig.ContentCfg
         public bool Load(ConfigFile file)
         {
             if (Content == null)
+            {
                 return false;
+            }
+
             _file = file;
             if (GetValue("Enabled", false, "Enables configuration of this content's properties."))
             {
