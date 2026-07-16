@@ -1,18 +1,23 @@
-﻿using BepInEx.Configuration;
-using LethalLevelLoader;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
+using BepInEx.Configuration;
+using LethalLevelLoader;
 
 namespace JKConfig.ContentCfg
 {
-    public abstract class BaseContentConfig<T> where T : ExtendedContent
+    public abstract class BaseContentConfig<T>
+        where T : ExtendedContent
     {
         public T Content;
         private ConfigFile _file;
 
         public bool Load(ConfigFile file)
         {
-            if (Content == null) return false;
+            if (Content == null)
+            {
+                return false;
+            }
+
             _file = file;
             if (GetValue("Enabled", false, "Enables configuration of this content's properties."))
             {
@@ -52,6 +57,7 @@ namespace JKConfig.ContentCfg
             return string.Join(',', properties.Select(x => $"{x.Min}-{x.Max}-{x.Rarity}"));
         }
 
+        // min-max-rarity, min-max-rarity, min-max-rarity,
         public IEnumerable<Vector2WithRarity> ParseV2wr(string config)
         {
             string[] split = config.Split(',');
