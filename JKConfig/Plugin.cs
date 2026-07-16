@@ -1,8 +1,8 @@
-﻿using BepInEx;
+﻿using System;
+using System.Collections.Generic;
+using BepInEx;
 using BepInEx.Logging;
 using JLL.API;
-using System;
-using System.Collections.Generic;
 
 namespace JKConfig
 {
@@ -15,8 +15,8 @@ namespace JKConfig
         private const string modName = "JKConfig";
         private const string modVersion = "0.1.0";
 
-        static internal ManualLogSource mls;
-        static internal List<JKConfigFile> configFiles = [];
+        internal static ManualLogSource mls;
+        internal static List<JKConfigFile> configFiles = [];
 
         public void Awake()
         {

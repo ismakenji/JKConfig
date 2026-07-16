@@ -1,9 +1,9 @@
-﻿using BepInEx;
+﻿using System.Collections.Generic;
+using System.IO;
+using BepInEx;
 using BepInEx.Configuration;
 using JKConfig.ContentCfg;
 using JLL.ScriptableObjects;
-using System.Collections.Generic;
-using System.IO;
 using UnityEngine;
 
 namespace JKConfig
@@ -25,7 +25,9 @@ namespace JKConfig
         {
             int i = 0;
 
-            foreach (var cfg in Items) if (cfg.Load(File)) i++;
+            foreach (var cfg in Items)
+                if (cfg.Load(File))
+                    i++;
 
             File.Save();
             Plugin.mls.LogInfo($"Applied {i}: {File.ConfigFilePath}");
