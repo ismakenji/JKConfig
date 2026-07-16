@@ -14,6 +14,9 @@ namespace JKConfig.ContentCfg
 
         protected override void LoadCfg()
         {
+            Content.Item.minValue = GetValue("MinValue", Content.Item.minValue, "This is a description");
+            Content.Item.maxValue = GetValue("MaxValue", Content.Item.maxValue, "This is a description");
+
             levelTags = GetValue("LevelTags", Content.LevelMatchingProperties.levelTags, "This is a description");
             currentRoutePrice = GetValue("CurrentRoutePrice", Content.LevelMatchingProperties.currentRoutePrice, "This is a description");
             currentWeather = GetValue("CurrentWeather", Content.LevelMatchingProperties.currentWeather, "This is a description");
