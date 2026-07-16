@@ -29,14 +29,24 @@ namespace JKConfig.ContentCfg
 
         protected abstract void LoadCfg();
 
-        public V GetValue<V>(string propertyName, V defaultValue, string description = "")
+        public bool GetValue(string propertyName, bool defaultValue, string description = "")
+        {
+            return _file.Bind(Content.name, propertyName, defaultValue, description).Value;
+        }
+
+        public int GetValue(string propertyName, int defaultValue, string description = "")
+        {
+            return _file.Bind(Content.name, propertyName, defaultValue, description).Value;
+        }
+
+        public float GetValue(string propertyName, float defaultValue, string description = "")
         {
             return _file.Bind(Content.name, propertyName, defaultValue, description).Value;
         }
 
         public string Stringify(IEnumerable<StringWithRarity> properties)
         {
-            return string.Join(',', properties.Select(x => $"{x.Name}-{x.Rarity}"));
+            return string.Join(',', properties.Select(x => $"{x.Name}:{x.Rarity}"));
         }
 
         public IEnumerable<StringWithRarity> ParseSwr(string config)
@@ -44,7 +54,7 @@ namespace JKConfig.ContentCfg
             string[] split = config.Split(',');
             foreach (string s in split)
             {
-                string[] v = s.Trim().Split('-');
+                string[] v = s.Trim().Split(':');
                 if (v.Length > 1 && int.TryParse(v[1], out int rarity))
                 {
                     yield return new StringWithRarity(v[0].Trim(), rarity);
@@ -52,9 +62,14 @@ namespace JKConfig.ContentCfg
             }
         }
 
+        public IEnumerable<StringWithRarity> GetValue(string propertyName, IEnumerable<StringWithRarity> defaultValue, string description = "")
+        {
+            return ParseSwr(_file.Bind(Content.name, propertyName, Stringify(defaultValue), description).Value);
+        }
+
         public string Stringify(IEnumerable<Vector2WithRarity> properties)
         {
-            return string.Join(',', properties.Select(x => $"{x.Min}-{x.Max}-{x.Rarity}"));
+            return string.Join(',', properties.Select(x => $"{x.Min}-{x.Max}:{x.Rarity}"));
         }
 
         // min-max-rarity, min-max-rarity, min-max-rarity,
@@ -63,12 +78,24 @@ namespace JKConfig.ContentCfg
             string[] split = config.Split(',');
             foreach (string s in split)
             {
-                string[] v = s.Trim().Split('-');
-                if (v.Length > 2 && float.TryParse(v[0], out float x) && float.TryParse(v[1], out float y) && int.TryParse(v[2], out int rarity))
+                string[] v = s.Trim().Split(':');
+                string[] minMax = v[0].Trim().Split('-');
+
+                if (
+                    v.Length > 1
+                    && float.TryParse(minMax[0], out float x)
+                    && float.TryParse(minMax[1], out float y)
+                    && int.TryParse(v[1], out int rarity)
+                )
                 {
                     yield return new Vector2WithRarity(x, y, rarity);
                 }
             }
+        }
+
+        public IEnumerable<Vector2WithRarity> GetValue(string propertyName, IEnumerable<Vector2WithRarity> defaultValue, string description = "")
+        {
+            return ParseV2wr(_file.Bind(Content.name, propertyName, Stringify(defaultValue), description).Value);
         }
     }
 }
