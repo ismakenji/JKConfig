@@ -27,13 +27,14 @@ namespace JKConfig.ContentCfg
             twoHanded = GetValue("TwoHanded", Content.Item.twoHanded, "Indicates if the item is two-handed.");
             isConductiveMetal = GetValue("IsConductive", Content.Item.isConductiveMetal, "Indicates if the item is conductive.");
 
-
+            // Level Weights Settings
 
             levelTags = GetValue("ItemInjectionSettingsByLevelTags", Content.LevelMatchingProperties.levelTags, "Add this Item to a Level's randomisation pool based on matching Tag Names. (Minimum: 0, Maximum: 9999)").ToList();
             currentRoutePrice = GetValue("ItemInjectionSettingsByCurrentRoutePrice", Content.LevelMatchingProperties.currentRoutePrice, "Add this Item to a Level's randomisation pool based on matching Route Prices. (Minimum: 0, Maximum: 9999)")
                 .ToList();
             currentWeather = GetValue("ItemInjectionSettingsByCurrentWeather", Content.LevelMatchingProperties.currentWeather, "Add this Item to a Level's randomisation pool based on matching Weather Conditions. (Minimum: 0, Maximum: 9999)").ToList();
             planetNames = GetValue("ItemInjectionSettingsByPlanetNames", Content.LevelMatchingProperties.planetNames, "Add this Item to a Level's randomisation pool based on matching Level Names. (Minimum: 0, Maximum: 9999)").ToList();
+
             if (isEnabled)
             {
                 Content.LevelMatchingProperties.ApplyValues(
