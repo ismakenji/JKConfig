@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using LethalLevelLoader;
 
 namespace JKConfig.ContentCfg
@@ -12,22 +13,32 @@ namespace JKConfig.ContentCfg
         List<StringWithRarity> currentWeather = [];
         List<StringWithRarity> planetNames = [];
 
-        protected override void LoadCfg()
+        int minValue;
+        int maxValue;
+
+        protected override void LoadCfg(bool isEnabled)
         {
-            Content.Item.minValue = GetValue("MinValue", Content.Item.minValue, "This is a description");
-            Content.Item.maxValue = GetValue("MaxValue", Content.Item.maxValue, "This is a description");
+            minValue = GetValue("MinValue", Content.Item.minValue, "This is a description");
+            maxValue = GetValue("MaxValue", Content.Item.maxValue, "This is a description");
 
-            levelTags = GetValue("LevelTags", Content.LevelMatchingProperties.levelTags, "This is a description");
-            currentRoutePrice = GetValue("CurrentRoutePrice", Content.LevelMatchingProperties.currentRoutePrice, "This is a description");
-            currentWeather = GetValue("CurrentWeather", Content.LevelMatchingProperties.currentWeather, "This is a description");
-            planetNames = GetValue("PlanetNames", Content.LevelMatchingProperties.planetNames, "This is a description");
+            levelTags = GetValue("LevelTags", Content.LevelMatchingProperties.levelTags, "This is a description").ToList();
+            currentRoutePrice = GetValue("CurrentRoutePrice", Content.LevelMatchingProperties.currentRoutePrice, "This is a description")
+                .ToList();
+            currentWeather = GetValue("CurrentWeather", Content.LevelMatchingProperties.currentWeather, "This is a description").ToList();
+            planetNames = GetValue("PlanetNames", Content.LevelMatchingProperties.planetNames, "This is a description").ToList();
 
-            Content.LevelMatchingProperties.ApplyValues(
-                newLevelTags: levelTags,
-                newRoutePrices: currentRoutePrice,
-                newCurrentWeathers: currentWeather,
-                newPlanetNames: planetNames
-            );
+            if (isEnabled)
+            {
+                Content.LevelMatchingProperties.ApplyValues(
+                    newLevelTags: levelTags.ToList(),
+                    newRoutePrices: currentRoutePrice.ToList(),
+                    newCurrentWeathers: currentWeather.ToList(),
+                    newPlanetNames: planetNames.ToList()
+                );
+
+                Content.Item.minValue = minValue;
+                Content.Item.maxValue = maxValue;
+            }
         }
     }
 }

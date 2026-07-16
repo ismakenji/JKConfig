@@ -19,15 +19,14 @@ namespace JKConfig.ContentCfg
             }
 
             _file = file;
-            if (GetValue("Enabled", false, "Enables configuration of this content's properties."))
-            {
-                LoadCfg();
-                return true;
-            }
-            return false;
+
+            bool isEnabled = GetValue("Enabled", false, "Enables configuration of this content's properties.");
+
+            LoadCfg(isEnabled);
+            return isEnabled;
         }
 
-        protected abstract void LoadCfg();
+        protected abstract void LoadCfg(bool isEnabled);
 
         public bool GetValue(string propertyName, bool defaultValue, string description = "")
         {
