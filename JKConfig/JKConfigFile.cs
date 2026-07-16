@@ -14,6 +14,7 @@ namespace JKConfig
         private ConfigFile File;
 
         public List<ItemContentConfig> Items = [];
+        public List<EnemyContentConfig> Enemies = [];
 
         public override void Init(JLLMod parent)
         {
@@ -26,6 +27,14 @@ namespace JKConfig
             int i = 0;
 
             foreach (var cfg in Items)
+            {
+                if (cfg.Load(File))
+                {
+                    i++;
+                }
+            }
+
+            foreach (var cfg in Enemies)
             {
                 if (cfg.Load(File))
                 {
