@@ -1,8 +1,11 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using BepInEx;
 using BepInEx.Logging;
 using JLL.API;
+using JLL.ScriptableObjects;
+using UnityEngine;
 
 namespace JKConfig
 {
@@ -22,24 +25,9 @@ namespace JKConfig
         {
             mls = BepInEx.Logging.Logger.CreateLogSource(modGUID);
 
-            JFileHelper.OnJLLBundlesLoaded.AddListener(PostModLoad);
+            JFileHelper.OnJLLBundlesLoaded.AddListener(ConfigFilesLoader.LoadConfigs);
 
             mls.LogInfo($"Kenji is evil");
-        }
-
-        private void PostModLoad()
-        {
-            try
-            {
-                foreach (JKConfigFile file in configFiles)
-                {
-                    file.ApplyConfigs();
-                }
-            }
-            catch (Exception ex)
-            {
-                mls.LogError($"Whoopsie bad happened: {ex}");
-            }
         }
     }
 }
