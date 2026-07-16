@@ -43,7 +43,7 @@ namespace JKConfig.ContentCfg
             var insideWeather = GetValue("InsideLevelSettingsByCurrentWeather", insideDefaults?.currentWeather ?? Enumerable.Empty<StringWithRarity>(), "Add this Enemy to an Inside Level's randomisation pool based on matching Weather Conditions. (Minimum: 0, Maximum: 9999)").ToList();
             var insidePlanetNames = GetValue("InsideLevelSettingsByPlanetNames", insideDefaults?.planetNames ?? Enumerable.Empty<StringWithRarity>(), "Add this Enemy to an Inside Level's randomisation pool based on matching Level Names. (Minimum: 0, Maximum: 9999)").ToList();
 
-            // Si está habilitado, aplicar sólo donde existan las propiedades destino
+
             if (isEnabled)
             {
                 if (Content?.OutsideLevelMatchingProperties != null)
